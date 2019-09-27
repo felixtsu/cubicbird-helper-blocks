@@ -5,13 +5,13 @@ namespace cubicbird{
     //%block
     //% group="Tiles"
     export function tileRowOfSprite(sprite: Sprite): number{
-        return getPositionIndex(sprite.x)
+        return getPositionIndex(sprite.y)
     }
 
     //%block
     //% group="Tiles"
     export function tileColumnOfSprite(sprite: Sprite): number {
-        return getPositionIndex(sprite.y)
+        return getPositionIndex(sprite.x)
     }
     
      /**
@@ -30,13 +30,13 @@ namespace cubicbird{
     //%block
     //% group="Tiles"
     export function getTileRow(tile:tiles.Tile) : number{
-        return getPositionIndex(tile.x)
+        return getPositionIndex(tile.y)
     }
 
     //%block
     //% group="Tiles"
     export function getTileColumn(tile: tiles.Tile): number {
-        return getPositionIndex(tile.y)
+        return getPositionIndex(tile.x)
     }
 
     //%block
