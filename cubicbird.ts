@@ -2,16 +2,33 @@
 //% groups='["Tiles"]'
 namespace cubicbird{
 
-    // %block
+    //%block
     export function currentTileRowOfSprite(sprite: Sprite): number{
-        let base = Math.pow(2, game.currentScene().tileMap.scale)
-        return Math.floor(sprite.x / base)
+        return getPositionIndex(sprite.x)
     }
 
-    // %block
+    //%block
     export function currentTileColumnOfSprite(sprite: Sprite): number {
-        let base = Math.pow(2, game.currentScene().tileMap.scale)
-        return Math.floor(sprite.y / base)
+        return getPositionIndex(sprite.y)
+    }
+
+    //%block
+    export function setTile(tile:tiles.Tile, index:number) {
+        scene.setTileAt(tile, index)
+    }
+
+    //%block
+    export function getTileRow(tile:tiles.Tile) : number{
+        return getPositionIndex(tile.x)
+    }
+
+    //%block
+    export function getTileColumn(tile: tiles.Tile): number {
+        return getPositionIndex(tile.y)
     }
     
+    function getPositionIndex(x:number) {
+        let base = Math.pow(2, game.currentScene().tileMap.scale)
+        return Math.floor(x/base)
+    }
 }
