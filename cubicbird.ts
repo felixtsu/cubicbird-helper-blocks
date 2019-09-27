@@ -40,7 +40,7 @@ namespace cubicbird{
     }
 
     //%block
-    //% blockId=cubicbirdtileisIndex block="set %tile=gamegettile to %index=colorindexpicker"
+    //% blockId=cubicbirdtileisIndex block="is %tile=gamegettile of %index=colorindexpicker?"
     //%group="Tiles"
     export function tileIsIndex(tile:tiles.Tile, index:number):boolean {
         return tile.tileSet == index
