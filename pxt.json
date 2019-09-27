@@ -3,7 +3,9 @@
     "version": "0.0.3",
     "description": "helper blocks for arcade makecode by cubicbird",
     "dependencies": {
-        "game": "*"
+        "game": "*",
+        "animation": "*",
+        "storyboard": "*"
     },
     "files": [
         "README.md",

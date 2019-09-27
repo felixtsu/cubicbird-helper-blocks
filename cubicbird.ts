@@ -3,32 +3,50 @@
 namespace cubicbird{
 
     //%block
-    export function currentTileRowOfSprite(sprite: Sprite): number{
+    //% group="Tiles"
+    export function tileRowOfSprite(sprite: Sprite): number{
         return getPositionIndex(sprite.x)
     }
 
     //%block
-    export function currentTileColumnOfSprite(sprite: Sprite): number {
+    //% group="Tiles"
+    export function tileColumnOfSprite(sprite: Sprite): number {
         return getPositionIndex(sprite.y)
     }
-
+    
+     /**
+     * Set a tile at the given index
+     * @param tile
+     * @param index
+     */
     //%block
+    //% blockId=cubicbirdsettile block="set %tile=gamegettile to %index=colorindexpicker"
+    //% group="Tiles"
+    //% weight=30
     export function setTile(tile:tiles.Tile, index:number) {
         scene.setTileAt(tile, index)
     }
 
     //%block
+    //% group="Tiles"
     export function getTileRow(tile:tiles.Tile) : number{
         return getPositionIndex(tile.x)
     }
 
     //%block
+    //% group="Tiles"
     export function getTileColumn(tile: tiles.Tile): number {
         return getPositionIndex(tile.y)
     }
+
+    //%block
+    //% blockId=cubicbirdtileisIndex block="set %tile=gamegettile to %index=colorindexpicker"
+    //%group="Tiles"
+    export function tileIsIndex(tile:tiles.Tile, index:number):boolean {
+        return tile.tileSet == index
+    }
     
     function getPositionIndex(x:number) {
-        let base = Math.pow(2, game.currentScene().tileMap.scale)
-        return Math.floor(x/base)
+        return x >> game.currentScene().tileMap.scale
     }
 }
