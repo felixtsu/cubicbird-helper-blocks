@@ -1,5 +1,5 @@
-//% weight=100 color=#6699CC icon="\uf140"
-//% groups='["Tiles"]'
+//% weight=100 color=#6699CC icon="\uf140" block="Cubicbird"
+//% groups='["Tiles", "Sprite"]'
 namespace cubicbird{
 
     //%block
@@ -49,4 +49,5 @@ namespace cubicbird{
     function getPositionIndex(x:number) {
         return x >> game.currentScene().tileMap.scale
     }
+
 }
