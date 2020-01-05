@@ -4,7 +4,7 @@
     "description": "helper blocks for arcade makecode by cubicbird",
     "dependencies": {
         "game": "*",
-	"color-coded-tilemap": "*"
+        "color-coded-tilemap": "*"
     },
     "files": [
         "README.md",
@@ -15,6 +15,5 @@
         "test.ts"
     ],
     "public": false,
-    "preferredEditor": "tsprj",
-    "targetVersion": "0.14.59"
+    "preferredEditor": "tsprj"
 }
