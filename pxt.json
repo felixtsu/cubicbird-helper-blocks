@@ -3,8 +3,7 @@
     "version": "0.0.8",
     "description": "helper blocks for arcade makecode by cubicbird",
     "dependencies": {
-        "game": "*",
-        "color-coded-tilemap": "*"
+        "game": "*"
     },
     "files": [
         "README.md",
