@@ -50,4 +50,23 @@ namespace cubicbird{
         return x >> game.currentScene().tileMap.scale
     }
 
+    let barWidth = NaN;
+
+    //%block
+    //% blockId=cubicbirddisplayHitPointBar block="%x % of hp"
+    //% group="Display"
+    export function displayHitPointBar(x:number) {
+        if (x <= 0) {
+            barWidth = NaN;
+        } else {
+            barWidth = x / 5 * 6;
+        }
+        game.onPaint(function () {
+            if (barWidth) {
+                screen.fillRect(20, 110, 120, 4, 1)
+                screen.fillRect(20, 111, x / 5 * 6, 2, 3)
+            } 
+        })
+    }
+
 }
