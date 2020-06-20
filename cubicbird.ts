@@ -1,10 +1,14 @@
 //% weight=100 color=#6699CC icon="\uf140" block="Cubicbird"
-//% groups='["Tiles", "Sprite"]'
-namespace cubicbird{
+//% groups='["Tiles", "Display"]'
+namespace cubicbird {
+
+
+    let hpManagerSprites: Sprite[] = []
+    const CUBICBIRD_HELPER_BLOCKS_SPRITE_HP_DATA_KEY = 'CUBICBIRD_HELPER_BLOCKS_SPRITE_HP_DATA_KEY'
 
     //%block
     //% group="Tiles"
-    export function tileRowOfSprite(sprite: Sprite): number{
+    export function tileRowOfSprite(sprite: Sprite): number {
         return getPositionIndex(sprite.y)
     }
 
@@ -13,23 +17,23 @@ namespace cubicbird{
     export function tileColumnOfSprite(sprite: Sprite): number {
         return getPositionIndex(sprite.x)
     }
-    
-     /**
-     * Set a tile at the given index
-     * @param tile
-     * @param index
-     */
+
+    /**
+    * Set a tile at the given index
+    * @param tile
+    * @param index
+    */
     //%block
     //% blockId=cubicbirdsettile block="set %tile=gamegettile to %index=colorindexpicker"
     //% group="Tiles"
     //% weight=30
-    export function setTile(tile:tiles.Tile, index:number) {
+    export function setTile(tile: tiles.Tile, index: number) {
         scene.setTileAt(tile, index)
     }
 
     //%block
     //% group="Tiles"
-    export function getTileRow(tile:tiles.Tile) : number{
+    export function getTileRow(tile: tiles.Tile): number {
         return getPositionIndex(tile.y)
     }
 
@@ -42,20 +46,21 @@ namespace cubicbird{
     //%block
     //% blockId=cubicbirdtileisIndex block="is %tile=gamegettile of %index=colorindexpicker?"
     //%group="Tiles"
-    export function tileIsIndex(tile:tiles.Tile, index:number):boolean {
+    export function tileIsIndex(tile: tiles.Tile, index: number): boolean {
         return tile.tileSet == index
     }
-    
-    function getPositionIndex(x:number) {
+
+    function getPositionIndex(x: number) {
         return x >> game.currentScene().tileMap.scale
     }
+
 
     let barWidth = NaN;
 
     //%block
-    //% blockId=cubicbirddisplayHitPointBar block="%x % of hp"
+    //% blockId=cubicbirddisplayHitPointBar block="%x percent of hp"
     //% group="Display"
-    export function displayHitPointBar(x:number) {
+    export function displayHitPointBar(x: number) {
         if (x <= 0) {
             barWidth = NaN;
         } else {
@@ -65,8 +70,39 @@ namespace cubicbird{
             if (barWidth) {
                 screen.fillRect(20, 110, 120, 4, 1)
                 screen.fillRect(20, 111, x / 5 * 6, 2, 3)
-            } 
+            }
         })
     }
+
+
+    //%block
+    //% blockId=cubicbirddisplaSpriteyHitPointBar block="show %sprite=variables_get(mySprite) %x percent of hp"
+    //% group="Display"
+    export function displaySpriteHitPointBar(sprite: Sprite, x: number) {
+        if (!hpManagerSprites.find(element => element === sprite)) {
+            hpManagerSprites.push(sprite)
+            sprite.onDestroyed(()=> {
+                hpManagerSprites.removeElement(sprite)
+            })
+        }
+
+        sprite.data[CUBICBIRD_HELPER_BLOCKS_SPRITE_HP_DATA_KEY] = x
+    }
+
+    game.onShade(function () {
+        for (let hpManagedSprite of hpManagerSprites) {
+
+            let hpPercentage = hpManagedSprite.data[CUBICBIRD_HELPER_BLOCKS_SPRITE_HP_DATA_KEY]
+
+            if (hpPercentage > 0) {
+                let height = hpManagedSprite.image.height
+                let width = hpManagedSprite.image.width
+                let barWidth = (width - 2) * hpPercentage/100
+
+                screen.fillRect(hpManagedSprite.x - width / 2 + 1, hpManagedSprite.y - height / 2 - 2, width - 2, 1, 1)
+                screen.fillRect(hpManagedSprite.x - width / 2 + 1, hpManagedSprite.y - height / 2 - 2, barWidth, 1, 2)
+            }
+        }
+    })
 
 }
