@@ -1,5 +1,5 @@
 //% weight=100 color=#6699CC icon="\uf140" block="Cubicbird"
-//% groups='["Tiles", "Display"]'
+//% groups='["Tiles", "Display", "Sprite"]'
 namespace cubicbird {
 
 
@@ -74,6 +74,15 @@ namespace cubicbird {
         })
     }
 
+
+    //%block
+    //% blockId=cubicbirdMoveSpriteTowardsOthersprite block="move %sprite=variables_get(mySprite) towards %otherSprite=variables_get(mySprite) || at velocity %veloctiy"
+    //% group="Sprite"
+    export function moveTowards(sprite:Sprite, otherSprite:Sprite, velocity:number=50) {
+        let distance = Math.sqrt( Math.pow(sprite.x - otherSprite.x, 2) + Math.pow(sprite.y - otherSprite.y, 2) )
+        sprite.vx = velocity * (otherSprite.x - sprite.x) / distance
+        sprite.vy = velocity * (otherSprite.y - sprite.y) / distance
+    }
 
     //%block
     //% blockId=cubicbirddisplaSpriteyHitPointBar block="show %sprite=variables_get(mySprite) %x percent of hp"
