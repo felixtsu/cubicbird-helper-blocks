@@ -103,8 +103,6 @@ namespace cubicbird {
 
     game.onShade(function () {
         for (let hpManagedSprite of hpManagerSprites) {
-            console.log(hpManagedSprite.data[CUBICBIRD_HELPER_BLOCKS_SPRITE_HP_DATA_KEY])
-
             let hpPercentage = hpManagedSprite.data[CUBICBIRD_HELPER_BLOCKS_SPRITE_HP_DATA_KEY]
 
             if (hpPercentage > 0) {
