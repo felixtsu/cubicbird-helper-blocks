@@ -58,21 +58,38 @@ namespace cubicbird {
     let barWidth = NaN;
 
     //%block
-    //% blockId=cubicbirddisplayHitPointBar block="%x percent of hp"
+    //% blockId=cubicbirddisplayHitPointBar block="show %x percent of hp || on %sprite=variables_get(mySprite)"
     //% group="Display"
-    export function displayHitPointBar(x: number) {
-        if (x <= 0) {
-            barWidth = NaN;
+    export function displayHitPointBar(x: number, sprite:Sprite=null) {
+        if (sprite != null) {
+            displaySpriteHitPointBarImpl(sprite, x)
         } else {
-            barWidth = x / 5 * 6;
-        }
-        game.onPaint(function () {
-            if (barWidth) {
-                screen.fillRect(20, 110, 120, 4, 1)
-                screen.fillRect(20, 111, x / 5 * 6, 2, 3)
+            if (x <= 0) {
+                barWidth = NaN;
+            } else {
+                barWidth = x / 5 * 6;
             }
-        })
+            
+            game.onShade(function () {
+                if (barWidth) {
+                    screen.fillRect(20, 110, 120, 4, 1)
+                    screen.fillRect(20, 111, x / 5 * 6, 2, 3)
+                }
+            })
+        }
+        
     }
+
+    function displaySpriteHitPointBarImpl(sprite: Sprite, x: number) {
+        if (!hpManagerSprites.find(element => element === sprite)) {
+            hpManagerSprites.push(sprite)
+            sprite.onDestroyed(() => {
+                hpManagerSprites.removeElement(sprite)
+            })
+        }
+        sprite.data[CUBICBIRD_HELPER_BLOCKS_SPRITE_HP_DATA_KEY] = x
+    }
+
 
 
     //%block
@@ -84,22 +101,9 @@ namespace cubicbird {
         sprite.vy = velocity * (otherSprite.y - sprite.y) / distance
     }
 
-    //%block
-    //% blockId=cubicbirddisplaSpriteyHitPointBar block="show %sprite=variables_get(mySprite) %x percent of hp"
-    //% group="Display"
-    export function displaySpriteHitPointBar(sprite: Sprite, x: number) {
-        if (!hpManagerSprites.find(element => element === sprite)) {
-            hpManagerSprites.push(sprite)
-            sprite.onDestroyed(()=> {
-                hpManagerSprites.removeElement(sprite)
-            })
-        }
-
-        sprite.data[CUBICBIRD_HELPER_BLOCKS_SPRITE_HP_DATA_KEY] = x
-    }
-
     game.onShade(function () {
         for (let hpManagedSprite of hpManagerSprites) {
+            console.log(hpManagedSprite.data[CUBICBIRD_HELPER_BLOCKS_SPRITE_HP_DATA_KEY])
 
             let hpPercentage = hpManagedSprite.data[CUBICBIRD_HELPER_BLOCKS_SPRITE_HP_DATA_KEY]
 
