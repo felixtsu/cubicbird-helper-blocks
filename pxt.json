@@ -1,6 +1,6 @@
 {
     "name": "cubicbird-helper-blocks",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "helper blocks for arcade makecode by cubicbird",
     "dependencies": {
         "game": "*",
