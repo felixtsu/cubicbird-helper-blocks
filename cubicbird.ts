@@ -91,6 +91,28 @@ namespace cubicbird {
     }
 
 
+    //%block
+    //% blockId=cubicbirdCircleSpirteAt block="circle %sprite=variables_get(mySprite) at (%x, %y) with radius %radius at speed %velocity"
+    //% group="Sprite"
+    export function circleSpriteAt(sprite:Sprite, x:number, y:number, r:number, velocity:number) {
+        sprite.x = x;
+        sprite.y = y - r;
+        sprite.data['currentRadius'] = 0;
+
+        let interval = Math.PI * r * 1000/ velocity / 180 
+        
+        game.onUpdateInterval(interval, ()=>{
+            
+            let currentRadius = sprite.data['currentRadius'];
+            
+            sprite.vx = Math.cos(currentRadius) * velocity;
+            sprite.vy = Math.sin(currentRadius) * velocity;
+
+            sprite.data['currentRadius'] = currentRadius + Math.PI / 180
+        })
+    }
+
+
 
     //%block
     //% blockId=cubicbirdMoveSpriteTowardsOthersprite block="move %sprite=variables_get(mySprite) towards %otherSprite=variables_get(mySprite) || at velocity %veloctiy"
