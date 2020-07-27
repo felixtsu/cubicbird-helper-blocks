@@ -15,5 +15,12 @@
         "test.ts"
     ],
     "public": false,
+    "targetVersions": {
+        "target": "1.0.14",
+        "targetId": "arcade"
+    },
+    "supportedTargets": [
+        "arcade"
+    ],
     "preferredEditor": "tsprj"
 }

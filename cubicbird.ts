@@ -2,6 +2,13 @@
 //% groups='["Tiles", "Display", "Sprite"]'
 namespace cubicbird {
 
+    // %block
+    // %group="Sprite"
+    export function destroyAllSpriteOfKind(spriteKind:number) {
+        for (let targetSprite of sprites.allOfKind(spriteKind)) {
+            targetSprite.destroy()
+        }
+    }
 
     let hpManagerSprites: Sprite[] = []
     const CUBICBIRD_HELPER_BLOCKS_SPRITE_HP_DATA_KEY = 'CUBICBIRD_HELPER_BLOCKS_SPRITE_HP_DATA_KEY'
