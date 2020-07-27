@@ -2,8 +2,8 @@
 //% groups='["Tiles", "Display", "Sprite"]'
 namespace cubicbird {
 
-    // %block
-    // %group="Sprite"
+    //%block
+    //%group="Sprite"
     export function destroyAllSpriteOfKind(spriteKind:number) {
         for (let targetSprite of sprites.allOfKind(spriteKind)) {
             targetSprite.destroy()
