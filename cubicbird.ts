@@ -131,6 +131,14 @@ namespace cubicbird {
         sprite.vy = velocity * (otherSprite.y - sprite.y) / distance
     }
 
+
+    //%block
+    //% blockId=cubicbirdSpriteDistance block="distance of %sprite=variables_get(mySprite) and %otherSprite=variables_get(otherSprite)"
+    //% group="Sprite"
+    export function distance(sprite:Sprite, otherSprite:Sprite) :number {
+        return Math.sqrt(Math.pow(sprite.x - otherSprite.x, 2) + Math.pow(sprite.y - otherSprite.y, 2))
+    }
+
     game.onShade(function () {
         for (let hpManagedSprite of hpManagerSprites) {
             let hpPercentage = hpManagedSprite.data[CUBICBIRD_HELPER_BLOCKS_SPRITE_HP_DATA_KEY]
@@ -145,5 +153,7 @@ namespace cubicbird {
             }
         }
     })
+
+
 
 }
