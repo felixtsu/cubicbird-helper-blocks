@@ -138,6 +138,24 @@ namespace cubicbird {
     export function distance(sprite:Sprite, otherSprite:Sprite) :number {
         return Math.sqrt(Math.pow(sprite.x - otherSprite.x, 2) + Math.pow(sprite.y - otherSprite.y, 2))
     }
+    
+    //%block
+    //% blockId=cubicbirdNearestSpriteOfKind block="nearest sprite of kind %spriteKind=spritekind to %sprite=variables_get(mySprite)"
+    //% group="Sprite"
+    export function nearestSpriteOfKind(sprite:Sprite, spriteKind:number) :Sprite {
+        let nearestDistance = 999999999;
+        let result :Sprite= null
+
+        for (let candidate of sprites.allOfKind(spriteKind)) {
+            let currentDistance = distance(sprite, candidate)
+            if (currentDistance < nearestDistance) {
+                nearestDistance = currentDistance
+                result = candidate
+            }
+        }
+
+        return result;
+    } 
 
     game.onShade(function () {
         for (let hpManagedSprite of hpManagerSprites) {
@@ -154,6 +172,5 @@ namespace cubicbird {
         }
     })
 
-
-
 }
+
