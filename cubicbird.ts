@@ -15,12 +15,21 @@ namespace cubicbird {
     const CUBICBIRD_HELPER_BLOCKS_SPRITE_HP_DATA_KEY = 'CUBICBIRD_HELPER_BLOCKS_SPRITE_HP_DATA_KEY'
 
     //%block
+    //% blockId=cubicbirdlocationOf block="location of %sprite=variables_get(mySprite)"
+    //% group="Tiles"
+    export function locationOf(sprite:Sprite) :tiles.Location {
+        return tiles.getTileLocation(tileColumnOfSprite(sprite), tileRowOfSprite(sprite))
+    }
+
+    //%block
+    //% blockId=cubicbirdTileRowOfSprite block="tile row number of %sprite=variables_get(mySprite)"
     //% group="Tiles"
     export function tileRowOfSprite(sprite: Sprite): number {
         return getPositionIndex(sprite.y)
     }
 
     //%block
+    //% blockId=cubicbirdTileColumnOfSprite block="tile column number of %sprite=variables_get(mySprite)"
     //% group="Tiles"
     export function tileColumnOfSprite(sprite: Sprite): number {
         return getPositionIndex(sprite.x)
@@ -101,6 +110,7 @@ namespace cubicbird {
 
     //%block
     //% blockId=cubicbirdCircleSpirteAt block="circle %sprite=variables_get(mySprite) at (%x, %y) with radius %radius at speed %velocity"
+    //% velocity.shadow=spriteSpeedPicker
     //% group="Sprite"
     export function circleSpriteAt(sprite:Sprite, x:number, y:number, r:number, velocity:number) {
         sprite.x = x;
@@ -133,20 +143,20 @@ namespace cubicbird {
 
 
     //%block
-    //% blockId=cubicbirdSpriteDistance block="distance of %sprite=variables_get(mySprite) and %otherSprite=variables_get(otherSprite)"
-    //% group="Sprite"
+    //%blockId=cubicbirdSpriteDistance block="distance of %sprite=variables_get(mySprite) and %otherSprite=variables_get(otherSprite)"
+    //%group="Sprite"
     export function distance(sprite:Sprite, otherSprite:Sprite) :number {
         return Math.sqrt(Math.pow(sprite.x - otherSprite.x, 2) + Math.pow(sprite.y - otherSprite.y, 2))
     }
     
     //%block
-    //% blockId=cubicbirdNearestSpriteOfKind block="nearest sprite of kind %spriteKind=spritekind to %sprite=variables_get(mySprite)"
-    //% group="Sprite"
-    export function nearestSpriteOfKind(sprite:Sprite, spriteKind:number) :Sprite {
+    //%group="Sprite"
+    //%blockId=cubicbirdNearestSpriteOfKind block="nearest sprite of %kind=spritekind to %sprite=variables_get(mySprite)"
+    export function nearestSpriteOfKind(kind:number,sprite:Sprite) :Sprite {
         let nearestDistance = 999999999;
         let result :Sprite= null
 
-        for (let candidate of sprites.allOfKind(spriteKind)) {
+        for (let candidate of sprites.allOfKind(kind)) {
             let currentDistance = distance(sprite, candidate)
             if (currentDistance < nearestDistance) {
                 nearestDistance = currentDistance
