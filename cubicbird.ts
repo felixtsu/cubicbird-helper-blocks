@@ -171,6 +171,10 @@ namespace cubicbird {
         for (let hpManagedSprite of hpManagerSprites) {
             let hpPercentage = hpManagedSprite.data[CUBICBIRD_HELPER_BLOCKS_SPRITE_HP_DATA_KEY]
 
+            if (hpManagedSprite.isOutOfScreen(game.currentScene().camera)) {
+                continue
+            }
+
             if (hpPercentage > 0) {
                 let height = hpManagedSprite.image.height
                 let width = hpManagedSprite.image.width
