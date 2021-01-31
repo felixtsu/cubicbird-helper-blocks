@@ -168,6 +168,9 @@ namespace cubicbird {
     } 
 
     game.onShade(function () {
+        let offsetX = game.currentScene().camera.offsetX
+        let offsetY = game.currentScene().camera.offsetY
+
         for (let hpManagedSprite of hpManagerSprites) {
             let hpPercentage = hpManagedSprite.data[CUBICBIRD_HELPER_BLOCKS_SPRITE_HP_DATA_KEY]
 
@@ -180,8 +183,8 @@ namespace cubicbird {
                 let width = hpManagedSprite.image.width
                 let barWidth = (width - 2) * hpPercentage/100
 
-                screen.fillRect(hpManagedSprite.x - width / 2 + 1, hpManagedSprite.y - height / 2 - 2, width - 2, 1, 1)
-                screen.fillRect(hpManagedSprite.x - width / 2 + 1, hpManagedSprite.y - height / 2 - 2, barWidth, 1, 2)
+                screen.fillRect(hpManagedSprite.x - width / 2 + 1 - offsetX, hpManagedSprite.y - height / 2 - 2 - offsetY, width - 2, 1, 1)
+                screen.fillRect(hpManagedSprite.x - width / 2 + 1 - offsetX, hpManagedSprite.y - height / 2 - 2 - offsetY, barWidth, 1, 2)
             }
         }
     })
